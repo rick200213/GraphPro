@@ -4,6 +4,9 @@ import plotly.graph_objs as go
 import pandas as pd
 import numpy as np
 import json
+#Server address followed by url call the function under the url
+'''In this case it is the index.html page.The argument of the route 
+function is the url .app is an object of the flask class'''
 app=Flask(__name__)
 def createplot(graph):
     if graph=='Bar':
