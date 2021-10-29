@@ -22,7 +22,7 @@ def createplot(graph):
         random_y=np.random.rand(N)
         data=[go.Scatter(x=random_x,y=random_y)]
     elif graph=='Funnel Plot':
-        fig = go.Figure(go.Funnel(
+        data = [go.Funnel(
             y=["Website visit", "Downloads", "Potential customers", "Requested price", "Finalized"],
             x=[39, 27.4, 20.6, 11, 2],
             textposition="inside",
@@ -31,19 +31,28 @@ def createplot(graph):
                                   "line": {"width": [4, 2, 2, 3, 1, 1],
                                            "color": ["wheat", "wheat", "blue", "wheat", "wheat"]}},
             connector={"line": {"color": "royalblue", "dash": "dot", "width": 3}})
-        )
+        ]
 
-        fig.show()
+
     elif graph=='Funnel Area':
-        fig = px.funnel_area(names=["The 1st", "The 2nd", "The 3rd", "The 4th", "The 5th"],
-                             values=[5, 4, 3, 2, 1])
-        fig.show()
+        data = [go.Funnelarea(
+    text = ["The 1st","The 2nd", "The 3rd", "The 4th", "The 5th"],
+    values = [5, 4, 3, 2, 1]
+    )]
+
+    elif graph=='PieCharts':
+        labels = ['Oxygen', 'Hydrogen', 'Carbon_Dioxide', 'Nitrogen']
+        values = [4500, 2500, 1053, 500]
+
+        data =[go.Pie(labels=labels, values=values)]
+
 
     graphJson=json.dumps(data,cls=plotly.utils.PlotlyJSONEncoder)
     return graphJson
 @app.route('/')
 def index():
-  return render_template('index.html')
+    #for practice use index html or
+  return render_template('home.html')
 @app.route('/graph',methods=['GET','POST'])
 def change_graph():
     graph=request.args['selected']
